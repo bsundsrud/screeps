@@ -1,4 +1,5 @@
 var population = require('population');
+var behavior = require('behavior');
 var roles = require('roles');
 var level1 = require('level1');
 
@@ -48,11 +49,11 @@ function run(room) {
         level1.manage(room, spawners, creeps);
     }
     _.forEach(creeps, function(creep) {
-        var roleFunc = roles[creep.memory.role];
-        if (!roleFunc) {
+        var roleMap = roles[creep.memory.role];
+        if (!roleMap) {
             console.log("Unknown role " + creep.memory.role + " for creep " + name);
         } else {
-            roleFunc(creep);
+            behavior.creepStep(creep, roleMap);
         }
     });
 }
